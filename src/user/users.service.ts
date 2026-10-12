@@ -8,6 +8,9 @@ export class UsersService{
     }
 
     getProfile(){
-        return "Hello This is your profile\n"
+        return {
+            "id" : 100,
+            "message" :"I am Rafi"
+        }
     }
 }

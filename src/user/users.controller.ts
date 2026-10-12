@@ -14,7 +14,7 @@ export class UsersController{
     }
 
 
-    @Get('/profile')
+    @Get('profile')
     getProfile(){
         return this.usersService.getProfile()
     }
