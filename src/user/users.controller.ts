@@ -4,9 +4,7 @@ import { UsersService } from "./users.service.js";
 @Controller('users')
 export class UsersController{
 
-    constructor( private usersService : UsersService){
-
-    }
+    constructor( private usersService : UsersService){}
 
     @Get()
     getUser(){
