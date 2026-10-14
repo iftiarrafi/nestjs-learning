@@ -18,4 +18,8 @@ export class OrderService{
 
         return orders
     }
+
+    getMyOrder(){
+        return "Hello your order"
+    }
 }

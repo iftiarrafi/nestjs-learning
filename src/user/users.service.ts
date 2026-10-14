@@ -7,10 +7,17 @@ export class UsersService{
         return ["Hello" , "World" , "!"]
     }
 
-    getProfile(){
+    getProfile(id : string){
         return {
-            "id" : 100,
+            "id" : `${id}`,
             "message" :"I am Rafi"
+        }
+    }
+
+    getMyOrder(userId : string , orderId : string){
+        return {
+            "order_id" : `${orderId}`,
+            "user_id" : `${userId}`
         }
     }
 }

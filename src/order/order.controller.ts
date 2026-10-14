@@ -2,7 +2,7 @@ import { Controller, Get } from "@nestjs/common";
 import { OrderService } from "./order.service.js";
 
 
-@Controller('/order')
+@Controller('order')
 export class OrderController {
 
     constructor( private orderService : OrderService){}
@@ -10,5 +10,10 @@ export class OrderController {
     @Get()
     getOrders(){
         return this.orderService.getOrder()
+    }
+
+    @Get('myorders')
+    getMyOrder(){
+        return this.orderService.getMyOrder()
     }
 }
