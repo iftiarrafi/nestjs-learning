@@ -3,8 +3,22 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class UsersService{
 
-    getUser(){
-        return ["Hello" , "World" , "!"]
+    private users: any[] = []
+
+    createUser(user:any){
+        this.users.push(user)
+        return {
+            message : "User is created",
+            data: user 
+        }
+    }
+
+    getAllUser(){
+        return {
+            message : "Here are all users",
+            count : this.users.length,
+            data: this.users 
+        }
     }
 
     getProfile(id : string){
