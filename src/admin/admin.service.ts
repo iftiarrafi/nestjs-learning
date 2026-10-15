@@ -9,6 +9,12 @@ export class AdminService {
     }
 
     createUser(body:any){
-        return body
+        const {password , ...userData} = body
+        // it takes out password from body and groups all other items in userData
+        return {
+            success : true, // you can also write "success" : true, but js works file, it will auto be "success"
+            message :"user created successfully",
+            data: userData
+        }
     }
 }
