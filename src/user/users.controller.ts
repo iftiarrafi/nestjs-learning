@@ -16,10 +16,9 @@ export class UsersController{
         return this.usersService.getAllUser()
     }
 
-
     @Get(':id')
     getProfile(@Param('id') id : string ){
-        return this.usersService.getProfile(id)
+        return this.usersService.getProfile(Number(id))
     }
 
     // get users's order
