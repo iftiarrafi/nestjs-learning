@@ -3,7 +3,10 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class UsersService {
 
-    private users: any[] = [{ "id": 1, "name": "rafi", "age": 26, "city": "dhaka" }, { "id": 2, "name": "alex", "age": 26, "city": "ny" }, { "id": 3, "name": "bob", "age": 26, "city": "london" }];
+    private users: any[] = [
+        { "id": 1, "name": "rafi", "age": 26, "city": "dhaka" },
+        { "id": 2, "name": "alex", "age": 26, "city": "ny" },
+        { "id": 3, "name": "bob", "age": 26, "city": "london" }];
 
     createUser(user: any) {
         this.users.push(user)
@@ -33,6 +36,50 @@ export class UsersService {
         return {
             message: "user found",
             data: user
+        }
+    }
+
+
+    updateUser(id: number, body: any) {
+        const index = this.users.findIndex(user => user.id === id)
+        if(index === -1){ return {message : "no user found"} }
+
+        this.users[index]={
+            id,
+            ...body
+        }
+
+        return {
+            message : "user update successful",
+            data:this.users[index]
+        }
+
+    }
+    patchUser(id: number, body: any) {
+        const user = this.users.find(user => user.id === id)
+        if(!user){ return {message : "no user found"} }
+
+        Object.assign(user,body)
+
+        return {
+            message : "user update successfully",
+            data:user
+        }
+    }
+
+    deleteUser(id:number){
+        const index = this.users.findIndex(user => user.id === id)
+
+        if(index === -1) return {success:false , message : "No user found"}
+
+        const user = this.users[index]
+
+        this.users.splice(index,1)
+
+        return {
+            success:true,
+            message : "user deleted successfully",
+            data:user
         }
     }
 
