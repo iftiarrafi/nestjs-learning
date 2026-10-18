@@ -5,9 +5,9 @@ import { CreateUserDto } from "./dto/create-user.dto.js";
 export class UsersService {
 
     private users: any[] = [
-        { "id": 1, "name": "rafi", "age": 26, "city": "dhaka" },
-        { "id": 2, "name": "alex", "age": 26, "city": "ny" },
-        { "id": 3, "name": "bob", "age": 26, "city": "london" }];
+        { "id": 1, "name": "rafi", "email": "abc@gmail.com" , "age": 26, "city": "dhaka" },
+        { "id": 2, "name": "alex", "email": "abc@gmail.com" , "age": 26, "city": "ny" },
+        { "id": 3, "name": "bob", "email": "abc@gmail.com" , "age": 26, "city": "london" }];
 
     // createUser(user: any) {
     //     this.users.push(user)
