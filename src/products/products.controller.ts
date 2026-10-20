@@ -1,26 +1,76 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, HttpException, NotFoundException, Param, Post, Query, UnauthorizedException } from '@nestjs/common';
 import { ProductsService } from './products.service.js';
 import { CreateProductDto } from './dto/create-product.dto.js';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private productService : ProductsService){}
+    constructor(private productService: ProductsService) { }
 
     @Get()
-    getProducts(@Query('page') page = 1,
-                @Query('limit') limit = 10){
-        return this.productService.getProduct(page , limit)
+    getProducts() {
+        return this.productService.getProduct()
     }
 
-    @Get('details')
-    getDetails(
-        @Query('city') city = "dhaka",
-    ){
-        return {city}
+    // built-in exceptions : HttpException , BadRequestException , UnauthorizedException
+    // ForbiddenException , NotFoundException , ConflictException , InternalServerErrorException
+    
+    @Get('test')
+    testException(){
+        throw new HttpException(
+            "Something Went Wrong",
+            400
+        )
     }
 
-    @Post()
-    createProduct(@Body() createProductDto : CreateProductDto){
-        return this.productService.createProduct(createProductDto)
+    @Get('admin-dashboard')
+    getAdminDashboard(){
+        const isAdmin = false
+        
+        if(!isAdmin) throw new ForbiddenException("This dashboard is only for Admin")
+        
+        return {
+            dashboard : "your dashboard"
+        }
     }
+
+    @Get(':productId')
+    getProduct(@Param('productId') productId : string){
+
+        const isAuth = true //false
+
+        if(!isAuth){
+            throw new UnauthorizedException("Please login first")
+        }
+
+
+        if( isNaN(Number(productId))) {
+            throw new BadRequestException(
+                "User ID must be a number"
+            )
+        }
+        
+        const productExists = false
+
+        if(!productExists) throw new NotFoundException("The product is not found!")
+
+        return {
+            productId : productId
+        }
+    }
+
+    @Post('create-product')
+    createProduct(@Body() body : any){
+
+        const productExists = true
+
+        if(productExists) throw new ConflictException("This product already exists")
+
+        return {
+            message : "product is created"
+        }
+    }
+
+
+    
+
 }

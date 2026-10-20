@@ -9,25 +9,9 @@ export class ProductsService {
                 { "id" : 103,"type": "electronics","brand" : "apple"},]
 
 
-    getProduct(page:number , limit:number){
-        // return {
-        //     "page" :  `Page No : ${page}`,
-        //     "limit" :  `limit to : ${limit}`
-        // }
+    getProduct(){
         return {
-            page,
-            limit
-        }
-    }
-
-    createProduct(createProductDto : CreateProductDto){
-        const newProduct = {
-            id : this.products.length + 1 , 
-            ...createProductDto
-        }
-        return {
-            message : "product is created",
-            product : newProduct
+           data : this.products
         }
     }
 }
