@@ -1,4 +1,4 @@
-import { BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, HttpException, NotFoundException, Param, Post, Query, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, HttpException, InternalServerErrorException, NotFoundException, Param, Post, Query, UnauthorizedException } from '@nestjs/common';
 import { ProductsService } from './products.service.js';
 import { CreateProductDto } from './dto/create-product.dto.js';
 
@@ -20,6 +20,10 @@ export class ProductsController {
             "Something Went Wrong",
             400
         )
+    }
+    @Get('test2')
+    getTest(){
+        throw new InternalServerErrorException("Something went wrong")
     }
 
     @Get('admin-dashboard')
