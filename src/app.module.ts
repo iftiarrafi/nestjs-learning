@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { UsersModule } from './user/users.module.js';
@@ -18,6 +18,10 @@ import { LoggerMiddleware } from './middleware/logger/logger.middleware.js';
 })
 export class AppModule {
   configure(consumer:MiddlewareConsumer){
-    consumer.apply(LoggerMiddleware).forRoutes('*')
+    consumer.apply(LoggerMiddleware)
+    //.forRoutes('*') // for all routes
+    //.forRoutes('users') // only for users
+    //.forRoutes({path:"users",method: RequestMethod.GET}) // only for user routes and its GET request
+    .forRoutes('users' , 'products') // only for users , products routes
   }
 }
