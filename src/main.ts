@@ -13,10 +13,6 @@ async function bootstrap() {
 
   }))
 
-  // app.useGlobalGuards(
-  //   new AuthGuard()
-  // )
-
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();

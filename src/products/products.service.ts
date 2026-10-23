@@ -8,10 +8,4 @@ export class ProductsService {
                 { "id" : 102,"type": "car", "brand" : "bmw"},
                 { "id" : 103,"type": "electronics","brand" : "apple"},]
 
-
-    getProduct(){
-        return {
-           data : this.products
-        }
-    }
 }
