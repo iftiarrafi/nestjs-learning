@@ -1,13 +1,12 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { UsersModule } from './user/users.module.js';
-import { ProductsModule } from './products/products.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { LoggerMiddleware } from './middleware/logger/logger.middleware.js';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from './user/user.module.js';
 
 
 @Module({
@@ -24,8 +23,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
-    ProductsModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
