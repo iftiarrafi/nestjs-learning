@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Q
 import { UserService } from './user.service.js';
 import { CreateUserDto } from './DTO/create-user.dto.js';
 import { UpdateUserDto } from './DTO/update-user.dto.js';
+import { PagePipe } from '../pipe/page/page.pipe.js';
 
 
 
@@ -16,7 +17,7 @@ export class UserController {
 
     @Get()
     async getAllUsers(
-        @Query('page') page : string = "1",
+        @Query('page', PagePipe) page : string = "1",
         @Query('limit') limit : string = "3"
     ){
         return await this.userService.findAll(Number(page) , Number(limit))
