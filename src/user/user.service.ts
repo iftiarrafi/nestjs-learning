@@ -29,35 +29,28 @@ export class UserService {
         }
     }
 
-    // async findAll(page : number , limit : number) {
+    async findAll( page:number = 1 , limit:number =2 , 
+        name?:string , 
+        email?:string , 
+        minAge?: number , 
+        maxAge?: number ) {
 
-    //     const skip = (page - 1) * limit
-
-    //     return await this.userModel.find().skip(skip).limit(limit)
-
-    // }
-    async findAll(page: number, limit: number) {
-        try {
-            const skip = (page - 1) * limit
-
-            const [users, total] = await Promise.all([
-                this.userModel.find().skip(skip).limit(limit),
-                this.userModel.countDocuments()
-            ])
-
-            const totalPages = Math.ceil(total / limit)
-
-            return {
-                data: users,
-                pagination: {
-                    total, page, limit, totalPages
-                }
-            }
-
-        } catch (error) {
-            throw new InternalServerErrorException("Internal server error")
+        const filter : any = {}
+        if (name) filter.name = { $regex : name , $options: 'i' }
+        if (email) filter.email = { $regex : email , $options : 'i' }
+        if (minAge !== undefined || maxAge !== undefined) {
+            filter.age = {}
+            if(minAge !== undefined) filter.age.$gte = minAge
+            if(maxAge !== undefined) filter.age.$lte = maxAge
         }
 
+        const skip = (page - 1) * limit
+
+        return await this.userModel
+        .find(filter)
+        .skip(skip)
+        .limit(limit)
+        .exec()
 
     }
 

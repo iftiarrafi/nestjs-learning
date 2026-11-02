@@ -3,6 +3,7 @@ import { UserService } from './user.service.js';
 import { CreateUserDto } from './DTO/create-user.dto.js';
 import { UpdateUserDto } from './DTO/update-user.dto.js';
 import { PagePipe } from '../pipe/page/page.pipe.js';
+import { LimitPipe } from '../pipe/limit/limit.pipe.js';
 
 
 
@@ -16,12 +17,26 @@ export class UserController {
     }
 
     @Get()
-    async getAllUsers(
-        @Query('page', PagePipe) page : string = "1",
-        @Query('limit') limit : string = "3"
+    async findAll(
+        @Query('name') name?: string ,
+        @Query('email') email?: string ,
+        @Query('minAge') minAge?: string ,
+        @Query('maxAge') maxAge?: string ,
+        @Query('page' , PagePipe) page: number = 1,
+        @Query('limit' , LimitPipe) limit: number = 2,
     ){
-        return await this.userService.findAll(Number(page) , Number(limit))
+        return await this.userService.findAll(
+            page,
+            limit,
+            name,
+            email,
+            minAge? Number(minAge) : undefined ,
+            maxAge? Number(maxAge) : undefined ,
+            
+        ) 
     }
+
+
 
     @Get('search')
     async findByEmail(
